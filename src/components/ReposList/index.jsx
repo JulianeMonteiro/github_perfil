@@ -5,26 +5,49 @@ import styles from "./ReposList.module.css";
 const ReposList = ({ nomeUsuario }) => {
   const [repos, setRepos] = useState([]);
   const [estaCarregando, setEstaCarregando] = useState(true);
+  const [deuErro, setDeuErro] = useState(false);
 
   useEffect(() => {
     setEstaCarregando(true);
-    fetch(`https://api.github.com/users/${nomeUsuario}/repos`)
-      .then((res) => res.json())
-      .then((resJson) => {
+
+    const fetchData = async () => {
+      setEstaCarregando(true);
+      setRepos([]);
+
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/${nomeUsuario}/repos`
+        );
+
+        if (!response.ok) {
+          throw new Error("Erro ao obter os repositórios do usuário.");
+        }
+
+        const reposJson = await response.json();
+
         setTimeout(() => {
           setEstaCarregando(false);
-          setRepos(resJson);
-        }, 3000);
-      });
+          setRepos(reposJson);
+        }, 2000);
+      } catch (error) {
+        setEstaCarregando(false);
+        setDeuErro(true);
+        console.error(error);
+      }
+    };
+    if (nomeUsuario.trim() !== "") {
+      fetchData(setDeuErro(false));
+    }
   }, [nomeUsuario]);
 
   return (
     <div className="container">
-      {estaCarregando ? (
+      {deuErro ? (
+        <h2 className={styles.error}>Usuário não encontrado! </h2>
+      ) : estaCarregando ? (
         <h3>Carregando...</h3>
       ) : (
         <ul className={styles.list}>
-          {/* {repos.map((repositorio) => ( */}
           {repos.map(({ id, name, language, html_url }) => (
             <li className={styles.listItem} key={id}>
               <div className={styles.itemName}>

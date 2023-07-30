@@ -25,3 +25,11 @@
   padding: 8px;
   text-decoration: none;
 }
+
+.error {
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--errorText);
+  padding: 16px;
+  background-color: var(--primaryColor);
+}

@@ -11,7 +11,49 @@
   margin: 0 auto;
 }
 
+.entradaUsuario {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primaryColor);
+  padding: 24px 16px 16px 16px;
+  text-align: center;
+}
+
+.entradaUsuario label {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--errorText);
+}
+
+.user input {
+  width: 200px;
+  margin: 24px auto;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--terciaryColor);
+  outline: none;
+}
+
+.user button {
+  width: 100px;
+  margin: 0 auto;
+  margin-left: 10px;
+  padding: 8px;
+  color: var(--secondaryColor);
+  background-color: var(--terciaryColor);
+  border: 1px solid var(--terciaryColor);
+  border-radius: 4px;
+}
+
+.user button:hover {
+  background-color: var(--hoverButton);
+}
+
 :root {
   --primaryColor: #f7f1e3;
   --secondaryColor: #111;
+  --terciaryColor: #c2baa5;
+  --hoverButton: #cdc2a8;
+  --errorText: #aea58f;
 }
